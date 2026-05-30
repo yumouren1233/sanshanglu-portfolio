@@ -216,7 +216,9 @@ body::after {
   border-top: 1px solid var(--border);
 }
 
-.section-num {
+.section[data-num]::after,
+.project[data-num]::after {
+  content: attr(data-num);
   font-family: var(--font-display);
   font-size: 120px;
   font-weight: 700;
@@ -227,6 +229,7 @@ body::after {
   line-height: 1;
   pointer-events: none;
   user-select: none;
+  z-index: 0;
 }
 
 .section-label {
@@ -746,7 +749,7 @@ body::after {
   .hero-stat-num { font-size: 36px; }
   .section { padding: 80px 24px; }
   .project { padding: 80px 24px; }
-  .section-num { font-size: 80px; right: 24px; }
+  .section[data-num]::after, .project[data-num]::after { font-size: 80px; right: 24px; }
   .about-grid { grid-template-columns: 1fr; gap: 40px; }
   .timeline-entry { grid-template-columns: 1fr; gap: 6px; }
   .grid-2, .grid-3, .grid-2-1, .grid-1-2 { grid-template-columns: 1fr; }
@@ -761,7 +764,7 @@ body::after {
   .hero-desc { font-size: 15px; }
   .hero-stats { gap: 24px; }
   .hero-stat-num { font-size: 28px; }
-  .section-num { display: none; }
+  .section[data-num]::after, .project[data-num]::after { display: none; }
   .gallery-grid { grid-template-columns: 1fr; }
   .project-head { flex-direction: column; }
 }
@@ -809,8 +812,7 @@ body::after {
 </section>
 
 <!-- ═══ About ═══ -->
-<section class="section" id="about">
-  <span class="section-num">01</span>
+<section class="section" id="about" data-num="01">
   <div class="section-label reveal">关于我</div>
   <h2 class="section-title reveal reveal-delay-1">用设计连接<br>文化与产品</h2>
 
@@ -869,8 +871,7 @@ body::after {
 </section>
 
 <!-- ═══ Project 01: Smart Ring ═══ -->
-<section class="project" id="projects">
-  <span class="section-num">02</span>
+<section class="project" id="projects" data-num="02">
   <div class="project-head reveal">
     <div>
       <div class="project-id">Project 01</div>
@@ -934,8 +935,7 @@ body::after {
 </section>
 
 <!-- ═══ Project 02: Four-Ram Zun ═══ -->
-<section class="project">
-  <span class="section-num">03</span>
+<section class="project" data-num="03">
   <div class="project-head reveal">
     <div>
       <div class="project-id">Project 02</div>
@@ -1010,8 +1010,7 @@ body::after {
 </section>
 
 <!-- ═══ Project 03: Zun Gift Box ═══ -->
-<section class="project">
-  <span class="section-num">04</span>
+<section class="project" data-num="04">
   <div class="project-head reveal">
     <div>
       <div class="project-id">Project 03</div>
@@ -1059,8 +1058,7 @@ body::after {
 </section>
 
 <!-- ═══ Project 04: THU Gift Box ═══ -->
-<section class="project">
-  <span class="section-num">05</span>
+<section class="project" data-num="05">
   <div class="project-head reveal">
     <div>
       <div class="project-id">Project 04</div>
@@ -1119,8 +1117,7 @@ body::after {
 </section>
 
 <!-- ═══ Project 05: Smart Helmet ═══ -->
-<section class="project">
-  <span class="section-num">06</span>
+<section class="project" data-num="06">
   <div class="project-head reveal">
     <div>
       <div class="project-id">Project 05</div>
@@ -1196,8 +1193,7 @@ body::after {
 </section>
 
 <!-- ═══ Gallery ═══ -->
-<section class="section" id="gallery">
-  <span class="section-num">07</span>
+<section class="section" id="gallery" data-num="07">
   <div class="section-label reveal">精选视觉作品</div>
   <h2 class="section-title reveal reveal-delay-1">插画与海报</h2>
 
