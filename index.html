@@ -1388,6 +1388,11 @@ document.querySelectorAll('.img-frame img').forEach(img => {
   }
 });
 
+// Safety: force all images visible after 3s in case load events never fire
+setTimeout(() => {
+  document.querySelectorAll('.img-frame:not(.loaded)').forEach(f => f.classList.add('loaded'));
+}, 3000);
+
 // ═══ Text Char Split Animation ═══
 function splitText(el) {
   const text = el.textContent;
