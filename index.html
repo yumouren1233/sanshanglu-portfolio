@@ -1,13 +1,1270 @@
 <!DOCTYPE html>
-<html lang="zh-CN" data-theme="light">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>sanshanglu — 产品设计师作品集</title>
-    <script type="module" crossorigin src="/sanshanglu-portfolio/assets/index-DsEBplZw.js"></script>
-    <link rel="stylesheet" crossorigin href="/sanshanglu-portfolio/assets/index-De8aIdmE.css">
-  </head>
-  <body>
-    <div id="root"></div>
-  </body>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>sanshanglu — 产品设计师作品集</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+/* ═══ Tokens ═══ */
+:root {
+  --bg: #0A0A0A;
+  --bg-elevated: #111111;
+  --bg-card: #161616;
+  --fg: #E8E4DF;
+  --fg-muted: #8A8580;
+  --fg-dim: #5A5550;
+  --accent: #C4956A;
+  --accent-bright: #D4A574;
+  --accent-dim: #8B6F47;
+  --copper: #B87333;
+  --border: #222222;
+  --border-light: #2A2A2A;
+  --radius: 4px;
+  --font-display: 'Playfair Display', 'Noto Serif SC', Georgia, serif;
+  --font-body: 'Noto Sans SC', -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out: cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+/* ═══ Reset ═══ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--fg);
+  line-height: 1.7;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+img { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+
+/* ═══ Grain Overlay ═══ */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 200px;
+}
+
+/* ═══ Navigation ═══ */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding: 20px 48px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background 0.4s ease, padding 0.4s ease;
+}
+
+.nav.scrolled {
+  background: rgba(10, 10, 10, 0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: 14px 48px;
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-brand {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--accent);
+}
+
+.nav-links {
+  display: flex;
+  gap: 32px;
+  list-style: none;
+}
+
+.nav-links a {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  transition: color 0.3s ease;
+  position: relative;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--accent);
+  transition: width 0.3s var(--ease);
+}
+
+.nav-links a:hover { color: var(--fg); }
+.nav-links a:hover::after { width: 100%; }
+
+/* ═══ Hero ═══ */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 120px 48px 80px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -20%;
+  right: -10%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(196, 149, 106, 0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero-eyebrow {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 32px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.hero-eyebrow::before {
+  content: '';
+  width: 40px;
+  height: 1px;
+  background: var(--accent-dim);
+}
+
+.hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(42px, 7vw, 80px);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--fg);
+  margin-bottom: 32px;
+  max-width: 800px;
+}
+
+.hero h1 em {
+  font-style: italic;
+  color: var(--accent);
+}
+
+.hero-desc {
+  font-size: 17px;
+  font-weight: 300;
+  line-height: 1.8;
+  color: var(--fg-muted);
+  max-width: 520px;
+  margin-bottom: 48px;
+}
+
+.hero-stats {
+  display: flex;
+  gap: 64px;
+  padding-top: 48px;
+  border-top: 1px solid var(--border);
+}
+
+.hero-stat-num {
+  font-family: var(--font-display);
+  font-size: 48px;
+  font-weight: 700;
+  color: var(--fg);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.hero-stat-label {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--fg-dim);
+}
+
+/* ═══ Section Common ═══ */
+.section {
+  padding: 120px 48px;
+  position: relative;
+}
+
+.section + .section {
+  border-top: 1px solid var(--border);
+}
+
+.section-num {
+  font-family: var(--font-display);
+  font-size: 120px;
+  font-weight: 700;
+  color: var(--border-light);
+  position: absolute;
+  top: 80px;
+  right: 48px;
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+}
+
+.section-label {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.section-label::before {
+  content: '';
+  width: 24px;
+  height: 1px;
+  background: var(--accent-dim);
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 4vw, 42px);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  margin-bottom: 48px;
+  max-width: 600px;
+}
+
+/* ═══ About ═══ */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  max-width: 1100px;
+}
+
+.about-text p {
+  font-size: 15px;
+  font-weight: 300;
+  color: var(--fg-muted);
+  line-height: 1.85;
+  margin-bottom: 20px;
+}
+
+.about-meta {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 10px 24px;
+  margin-top: 32px;
+  padding-top: 32px;
+  border-top: 1px solid var(--border);
+}
+
+.about-meta dt {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--fg-dim);
+}
+
+.about-meta dd {
+  font-size: 14px;
+  color: var(--fg);
+}
+
+.about-skills {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.skill-card {
+  padding: 24px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  transition: border-color 0.3s ease, transform 0.3s var(--ease);
+}
+
+.skill-card:hover {
+  border-color: var(--accent-dim);
+  transform: translateY(-2px);
+}
+
+.skill-card h4 {
+  font-size: 15px;
+  font-weight: 500;
+  margin-bottom: 8px;
+  color: var(--fg);
+}
+
+.skill-card p {
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--fg-muted);
+  line-height: 1.65;
+}
+
+/* ═══ Timeline ═══ */
+.timeline {
+  margin-top: 56px;
+  max-width: 1100px;
+}
+
+.timeline-entry {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: 32px;
+  padding: 24px 0;
+  border-bottom: 1px solid var(--border);
+  align-items: baseline;
+  transition: border-color 0.3s ease;
+}
+
+.timeline-entry:hover {
+  border-color: var(--accent-dim);
+}
+
+.timeline-date {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--fg-dim);
+  letter-spacing: 0.05em;
+  font-variant-numeric: tabular-nums;
+}
+
+.timeline-content h4 {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--fg);
+  margin-bottom: 4px;
+}
+
+.timeline-content p {
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--fg-muted);
+}
+
+/* ═══ Projects ═══ */
+.project {
+  padding: 100px 48px;
+  border-top: 1px solid var(--border);
+}
+
+.project-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+  gap: 24px;
+}
+
+.project-id {
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--accent-dim);
+  margin-bottom: 12px;
+}
+
+.project-name {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 4vw, 40px);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  margin-bottom: 8px;
+}
+
+.project-sub {
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--fg-muted);
+}
+
+.badge {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 6px 14px;
+  border-radius: 999px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.badge-live {
+  color: #4ADE80;
+  background: rgba(74, 222, 128, 0.1);
+  border: 1px solid rgba(74, 222, 128, 0.2);
+}
+
+.badge-concept {
+  color: var(--fg-dim);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 40px;
+}
+
+.tag {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--fg-muted);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  padding: 5px 14px;
+  border-radius: 999px;
+}
+
+/* ═══ Project Content ═══ */
+.project-body {
+  max-width: 1100px;
+}
+
+.project-body h3 {
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 12px;
+  margin-top: 40px;
+}
+
+.project-body p {
+  font-size: 15px;
+  font-weight: 300;
+  color: var(--fg-muted);
+  line-height: 1.8;
+  max-width: 65ch;
+  margin-bottom: 16px;
+}
+
+.challenge-box {
+  padding: 24px 28px;
+  background: var(--bg-card);
+  border-left: 2px solid var(--copper);
+  border-radius: var(--radius);
+  margin: 32px 0;
+}
+
+.challenge-box h4 {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--copper);
+  margin-bottom: 10px;
+}
+
+.challenge-box p {
+  font-size: 14px;
+  color: var(--fg-muted);
+  line-height: 1.7;
+  margin-bottom: 0;
+}
+
+/* ═══ Process Flow ═══ */
+.process {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin: 32px 0 40px;
+}
+
+.process-step {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--fg-muted);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  padding: 7px 16px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.process-step .num {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.process-arrow {
+  color: var(--fg-dim);
+  font-size: 12px;
+  opacity: 0.4;
+}
+
+/* ═══ Image Grids ═══ */
+.grid { display: grid; gap: 12px; margin: 32px 0; }
+.grid-hero { grid-template-columns: 1fr; }
+.grid-2 { grid-template-columns: 1fr 1fr; }
+.grid-3 { grid-template-columns: 1fr 1fr 1fr; }
+.grid-2-1 { grid-template-columns: 2fr 1fr; }
+.grid-1-2 { grid-template-columns: 1fr 2fr; }
+
+.img-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16/10;
+  overflow: hidden;
+  border-radius: var(--radius);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+}
+
+.img-frame.ratio-1 { aspect-ratio: 1/1; }
+.img-frame.ratio-4-3 { aspect-ratio: 4/3; }
+
+.img-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s var(--ease);
+}
+
+.img-frame:hover img {
+  transform: scale(1.03);
+}
+
+.img-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 32px 16px 12px;
+  background: linear-gradient(transparent, rgba(10, 10, 10, 0.8));
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--fg);
+  letter-spacing: 0.02em;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.35s ease, transform 0.35s var(--ease);
+}
+
+.img-frame:hover .img-caption {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ═══ Gallery ═══ */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  max-width: 1100px;
+}
+
+.gallery-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.gallery-card .img-frame {
+  aspect-ratio: 4/3;
+}
+
+.gallery-card h4 {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--fg);
+}
+
+.gallery-card p {
+  font-size: 12px;
+  font-weight: 300;
+  color: var(--fg-dim);
+  line-height: 1.5;
+}
+
+/* ═══ Footer ═══ */
+.footer {
+  padding: 100px 48px 64px;
+  border-top: 1px solid var(--border);
+  text-align: center;
+}
+
+.footer h2 {
+  font-family: var(--font-display);
+  font-size: clamp(32px, 5vw, 56px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 12px;
+}
+
+.footer h2 em {
+  font-style: italic;
+  color: var(--accent);
+}
+
+.footer-tagline {
+  font-size: 15px;
+  font-weight: 300;
+  color: var(--fg-muted);
+  margin-bottom: 48px;
+}
+
+.footer-contacts {
+  display: flex;
+  justify-content: center;
+  gap: 48px;
+  flex-wrap: wrap;
+  margin-bottom: 56px;
+}
+
+.footer-contact-label {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--fg-dim);
+  margin-bottom: 6px;
+}
+
+.footer-contact-value {
+  font-size: 15px;
+  color: var(--fg);
+}
+
+.footer-contact-value a {
+  color: var(--accent);
+  transition: color 0.2s ease;
+}
+
+.footer-contact-value a:hover { color: var(--accent-bright); }
+
+.back-top {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--fg-dim);
+  padding: 10px 20px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  transition: color 0.3s, border-color 0.3s;
+}
+
+.back-top:hover {
+  color: var(--fg);
+  border-color: var(--accent-dim);
+}
+
+/* ═══ Reveal Animation ═══ */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+
+/* ═══ Responsive ═══ */
+@media (max-width: 900px) {
+  .nav { padding: 16px 24px; }
+  .nav.scrolled { padding: 12px 24px; }
+  .nav-links { gap: 20px; }
+  .nav-links a { font-size: 11px; }
+  .hero { padding: 100px 24px 64px; }
+  .hero-stats { gap: 32px; flex-wrap: wrap; }
+  .hero-stat-num { font-size: 36px; }
+  .section { padding: 80px 24px; }
+  .project { padding: 80px 24px; }
+  .section-num { font-size: 80px; right: 24px; }
+  .about-grid { grid-template-columns: 1fr; gap: 40px; }
+  .timeline-entry { grid-template-columns: 1fr; gap: 6px; }
+  .grid-2, .grid-3, .grid-2-1, .grid-1-2 { grid-template-columns: 1fr; }
+  .gallery-grid { grid-template-columns: 1fr 1fr; }
+  .footer { padding: 80px 24px 48px; }
+  .footer-contacts { gap: 24px; }
+  .process-arrow { display: none; }
+}
+
+@media (max-width: 540px) {
+  .hero h1 { font-size: 32px; }
+  .hero-desc { font-size: 15px; }
+  .hero-stats { gap: 24px; }
+  .hero-stat-num { font-size: 28px; }
+  .section-num { display: none; }
+  .gallery-grid { grid-template-columns: 1fr; }
+  .project-head { flex-direction: column; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+  html { scroll-behavior: auto; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ Navigation ═══ -->
+<nav class="nav" id="nav">
+  <a href="#top" class="nav-brand">sanshanglu</a>
+  <ul class="nav-links">
+    <li><a href="#about">关于</a></li>
+    <li><a href="#projects">作品</a></li>
+    <li><a href="#gallery">画廊</a></li>
+    <li><a href="#contact">联系</a></li>
+  </ul>
+</nav>
+
+<!-- ═══ Hero ═══ -->
+<section class="hero" id="top">
+  <div class="hero-eyebrow reveal">Product Designer</div>
+  <h1 class="reveal reveal-delay-1">从概念到落地，<br>用设计<em>铸造</em>产品</h1>
+  <p class="hero-desc reveal reveal-delay-2">
+    3年跨领域设计经验，从新媒体到平面再到工业设计。专注将文化IP与智能硬件转化为可触达用户的实体产品——4款量产上市作品，覆盖从建模到生产的全流程。
+  </p>
+  <div class="hero-stats reveal reveal-delay-3">
+    <div>
+      <div class="hero-stat-num">4</div>
+      <div class="hero-stat-label">量产上市</div>
+    </div>
+    <div>
+      <div class="hero-stat-num">3</div>
+      <div class="hero-stat-label">年设计经验</div>
+    </div>
+    <div>
+      <div class="hero-stat-num">5</div>
+      <div class="hero-stat-label">核心项目</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ About ═══ -->
+<section class="section" id="about">
+  <span class="section-num">01</span>
+  <div class="section-label reveal">关于我</div>
+  <h2 class="section-title reveal reveal-delay-1">用设计连接<br>文化与产品</h2>
+
+  <div class="about-grid">
+    <div class="about-text reveal reveal-delay-2">
+      <p>我是 sanshanglu，一名产品设计师。从2021年入学起，先后经历了新媒体设计、平面设计和工业设计三个领域的实战积累。目前在清华美院外附部门从事工业设计工作，以智能产品为主，风格涵盖科技风格与文创设计。</p>
+      <p>我相信好的产品设计不是炫技，而是在用户需求、生产工艺和文化表达之间找到精准的平衡点。</p>
+
+      <dl class="about-meta">
+        <dt>毕业院校</dt><dd>绵阳师范学院</dd>
+        <dt>出生年月</dt><dd>2002.01</dd>
+        <dt>籍贯</dt><dd>四川乐山</dd>
+        <dt>求职方向</dt><dd>产品设计师 / 工业设计师</dd>
+      </dl>
+    </div>
+
+    <div class="about-skills reveal reveal-delay-3">
+      <div class="skill-card">
+        <h4>落地能力</h4>
+        <p>主导或深度参与4款量产产品——智能戒指、四羊方尊文创、四羊方尊礼盒、清华活动礼盒，从建模到生产全流程跟进。</p>
+      </div>
+      <div class="skill-card">
+        <h4>跨域整合</h4>
+        <p>从新媒体设计、平面设计到工业设计的完整成长路径，具备从视觉表达到产品结构的综合设计思维。</p>
+      </div>
+      <div class="skill-card">
+        <h4>文化转译</h4>
+        <p>擅长将传统文化IP（四羊方尊、布达拉宫）转化为符合当代审美的消费级文创产品，平衡文化辨识度与市场传播。</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="timeline reveal">
+    <div class="timeline-entry">
+      <div class="timeline-date">2024.09 — 2026.02</div>
+      <div class="timeline-content">
+        <h4>北京水木清阳文化创意产业有限公司</h4>
+        <p>工业设计师 — 清华美院外附部门，智能产品与文创设计</p>
+      </div>
+    </div>
+    <div class="timeline-entry">
+      <div class="timeline-date">2023.06 — 2023.09</div>
+      <div class="timeline-content">
+        <h4>乐山蓝图设计有限公司</h4>
+        <p>平面设计师</p>
+      </div>
+    </div>
+    <div class="timeline-entry">
+      <div class="timeline-date">2021.09 — 2022.09</div>
+      <div class="timeline-content">
+        <h4>四川征程科技有限公司</h4>
+        <p>新媒体设计师 — 海报设计、年会名片、视觉传达</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ Project 01: Smart Ring ═══ -->
+<section class="project" id="projects">
+  <span class="section-num">02</span>
+  <div class="project-head reveal">
+    <div>
+      <div class="project-id">Project 01</div>
+      <h2 class="project-name">智能戒指</h2>
+      <p class="project-sub">Smart Ring — 智能穿戴设备外形优化设计</p>
+    </div>
+    <span class="badge badge-live">已量产</span>
+  </div>
+
+  <div class="tags reveal reveal-delay-1">
+    <span class="tag">工业设计</span><span class="tag">3D建模</span><span class="tag">CMF设计</span><span class="tag">智能穿戴</span>
+  </div>
+
+  <div class="project-body">
+    <h3 class="reveal">项目背景</h3>
+    <p class="reveal">客户需要一款兼顾舒适性、轻便性和高端质感的智能穿戴戒指。原有方案在佩戴体验和外观细节上存在明显的优化空间，需要在不改变内部电子元件布局的前提下，重新定义产品的外形语言。</p>
+
+    <div class="challenge-box reveal">
+      <h4>核心设计挑战</h4>
+      <p>在极小的体积内平衡电子元件空间与人体工学佩戴舒适度，同时将产品重量控制在目标范围内。戒指需要长时间佩戴无感，但又要保持高端产品应有的质感与分量感。</p>
+    </div>
+
+    <h3 class="reveal">设计过程</h3>
+    <p class="reveal">我的角色是在上级审核通过后，独立完成外形优化设计的全流程。从用户佩戴场景分析出发，结合竞品形态对比，输出3版外观方案草图，经过方案评审后确定最终方向，再进行精细化3D建模和CMF定义。</p>
+
+    <div class="process reveal">
+      <span class="process-step"><span class="num">01</span> 佩戴场景分析</span><span class="process-arrow">→</span>
+      <span class="process-step"><span class="num">02</span> 竞品形态对比</span><span class="process-arrow">→</span>
+      <span class="process-step"><span class="num">03</span> 3版方案草图</span><span class="process-arrow">→</span>
+      <span class="process-step"><span class="num">04</span> 方案评审筛选</span><span class="process-arrow">→</span>
+      <span class="process-step"><span class="num">05</span> 精细建模</span><span class="process-arrow">→</span>
+      <span class="process-step"><span class="num">06</span> CMF定义</span><span class="process-arrow">→</span>
+      <span class="process-step"><span class="num">07</span> 渲染出图</span>
+    </div>
+
+    <div class="grid grid-hero reveal">
+      <div class="img-frame">
+        <img src="images/ring-hero.png" alt="智能戒指产品渲染图" loading="lazy">
+        <span class="img-caption">产品渲染成品图</span>
+      </div>
+    </div>
+
+    <div class="grid grid-3 reveal">
+      <div class="img-frame ratio-1">
+        <img src="images/ring-view1.png" alt="玫瑰金智能戒指侧面展示" loading="lazy">
+        <span class="img-caption">产品细节展示</span>
+      </div>
+      <div class="img-frame ratio-1">
+        <img src="images/ring-cmf.png" alt="金色宝石款智能戒指" loading="lazy">
+        <span class="img-caption">CMF — 材质与宝石镶嵌</span>
+      </div>
+      <div class="img-frame ratio-1">
+        <img src="images/ring-view2.png" alt="银色款智能戒指大理石场景" loading="lazy">
+        <span class="img-caption">银色款 — 场景展示</span>
+      </div>
+    </div>
+
+    <h3 class="reveal">落地成果</h3>
+    <p class="reveal">完成量产级3D模型交付，配合结构工程师完成开模对接。产品以舒适轻便的佩戴体验获得客户认可，实现了智能功能与高端质感的统一。</p>
+  </div>
+</section>
+
+<!-- ═══ Project 02: Four-Ram Zun ═══ -->
+<section class="project">
+  <span class="section-num">03</span>
+  <div class="project-head reveal">
+    <div>
+      <div class="project-id">Project 02</div>
+      <h2 class="project-name">四羊方尊</h2>
+      <p class="project-sub">国宝级青铜器的当代文创转化</p>
+    </div>
+    <span class="badge badge-live">已量产</span>
+  </div>
+
+  <div class="tags reveal reveal-delay-1">
+    <span class="tag">工业设计</span><span class="tag">3D扫描建模</span><span class="tag">榫卯工艺</span><span class="tag">文创产品</span>
+  </div>
+
+  <div class="project-body">
+    <h3 class="reveal">项目背景</h3>
+    <p class="reveal">将国宝级青铜器"四羊方尊"转化为面向大众消费市场的文创产品。核心命题是在保留文物高辨识度的同时，实现现代化表达和量产可行性——让博物馆里的"文物"成为日常生活中的文化消费品。</p>
+
+    <div class="challenge-box reveal">
+      <h4>核心设计挑战</h4>
+      <p>原始文物纹样极其复杂，直接3D打印或注塑无法还原细节。需要在保留文化辨识度的前提下，对结构和纹样进行系统性简化，以适应量产工艺的限制。同时，产品需要分件生产后组装，结构拆分方案直接影响装配效率和成品品质。</p>
+    </div>
+
+    <h3 class="reveal">设计过程</h3>
+    <p class="reveal">我负责扫描件建模、布线优化、构件切割分配和榫卯拼接工艺设计。由于生产难度大，纹样和结构经历了多轮修改。</p>
+
+    <div class="process reveal">
+      <span class="process-step"><span class="num">01</span> 文物3D扫描</span><span class="process-arrow">→</span>
+      <span class="process-step"><span class="num">02</span> 点云数据处理</span><span class="process-arrow">→</span>
+      <span class="process-step"><span class="num">03</span> 结构分件方案</span><span class="process-arrow">→</span>
+      <span class="process-step"><span class="num">04</span> 榫卯结构开发</span><span class="process-arrow">→</span>
+      <span class="process-step"><span class="num">05</span> 纹样简化</span><span class="process-arrow">→</span>
+      <span class="process-step"><span class="num">06</span> 打样验证</span><span class="process-arrow">→</span>
+      <span class="process-step"><span class="num">07</span> 量产上市</span>
+    </div>
+
+    <div class="grid grid-2 reveal">
+      <div class="img-frame">
+        <img src="images/zun-original.png" alt="四羊方尊文物原型" loading="lazy">
+        <span class="img-caption">文物原型参考</span>
+      </div>
+      <div class="img-frame">
+        <img src="images/zun-render.png" alt="四羊方尊3D建模渲染" loading="lazy">
+        <span class="img-caption">3D建模渲染成品</span>
+      </div>
+    </div>
+
+    <div class="grid grid-hero reveal">
+      <div class="img-frame">
+        <img src="images/zun-exploded.png" alt="四羊方尊产品白模拼接过程" loading="lazy">
+        <span class="img-caption">产品白模拼接过程</span>
+      </div>
+    </div>
+
+    <div class="grid grid-3 reveal">
+      <div class="img-frame ratio-1">
+        <img src="images/zun-assembly.png" alt="四羊方尊白模组件拼装" loading="lazy">
+        <span class="img-caption">白模拼装组件</span>
+      </div>
+      <div class="img-frame ratio-1">
+        <img src="images/zun-parts.jpg" alt="四羊方尊结构分件展示" loading="lazy">
+        <span class="img-caption">结构分件清单</span>
+      </div>
+      <div class="img-frame ratio-1">
+        <img src="images/zun-linedrawing.png" alt="四羊方尊线稿版本" loading="lazy">
+        <span class="img-caption">纹样简化线稿版</span>
+      </div>
+    </div>
+
+    <h3 class="reveal">落地成果</h3>
+    <p class="reveal">成功量产上市，实现了"让文物走进日常"的设计目标。产品在保留四羊方尊核心文化辨识度的同时，以现代化的结构方案和工艺标准，完成了从博物馆藏品到消费级文创的完整转化。</p>
+  </div>
+</section>
+
+<!-- ═══ Project 03: Zun Gift Box ═══ -->
+<section class="project">
+  <span class="section-num">04</span>
+  <div class="project-head reveal">
+    <div>
+      <div class="project-id">Project 03</div>
+      <h2 class="project-name">四羊方尊礼盒</h2>
+      <p class="project-sub">配套包装设计 — 让文物走进日常</p>
+    </div>
+    <span class="badge badge-live">已量产</span>
+  </div>
+
+  <div class="tags reveal reveal-delay-1">
+    <span class="tag">包装设计</span><span class="tag">文创产品</span><span class="tag">儿童用户画像</span><span class="tag">印刷工艺</span>
+  </div>
+
+  <div class="project-body">
+    <h3 class="reveal">项目背景</h3>
+    <p class="reveal">为四羊方尊文创产品设计配套礼盒包装。用户画像定位为儿童及家庭消费者，需要在货架陈列和电商展示两种场景下都具备吸引力。</p>
+
+    <div class="challenge-box reveal">
+      <h4>核心设计挑战</h4>
+      <p>如何在保持文物文化底蕴的同时，让包装对儿童群体产生吸引力？传统文物的严肃调性与儿童消费品的活泼需求之间存在天然的张力。</p>
+    </div>
+
+    <div class="process reveal">
+      <span class="process-step"><span class="num">01</span> 用户画像分析</span><span class="process-arrow">→</span>
+      <span class="process-step"><span class="num">02</span> 色彩策略制定</span><span class="process-arrow">→</span>
+      <span class="process-step"><span class="num">03</span> 包装结构选型</span><span class="process-arrow">→</span>
+      <span class="process-step"><span class="num">04</span> 插画元素设计</span><span class="process-arrow">→</span>
+      <span class="process-step"><span class="num">05</span> 刀版与工艺确认</span>
+    </div>
+
+    <div class="grid grid-2 reveal">
+      <div class="img-frame">
+        <img src="images/zunbox-hero.png" alt="四羊方尊礼盒展开全景" loading="lazy">
+        <span class="img-caption">礼盒展开全景</span>
+      </div>
+      <div class="img-frame">
+        <img src="images/zunbox-flat.png" alt="四羊方尊礼盒包装展开图" loading="lazy">
+        <span class="img-caption">包装设计展开图</span>
+      </div>
+    </div>
+
+    <h3 class="reveal">落地成果</h3>
+    <p class="reveal">礼盒已量产并配套四羊方尊文创产品销售，在文化调性与儿童市场之间取得了良好平衡。</p>
+  </div>
+</section>
+
+<!-- ═══ Project 04: THU Gift Box ═══ -->
+<section class="project">
+  <span class="section-num">05</span>
+  <div class="project-head reveal">
+    <div>
+      <div class="project-id">Project 04</div>
+      <h2 class="project-name">清华大学活动礼盒</h2>
+      <p class="project-sub">共青团清华大学委员会定制活动礼盒</p>
+    </div>
+    <span class="badge badge-live">已量产</span>
+  </div>
+
+  <div class="tags reveal reveal-delay-1">
+    <span class="tag">包装设计</span><span class="tag">品牌设计</span><span class="tag">高校定制</span><span class="tag">色彩分析</span>
+  </div>
+
+  <div class="project-body">
+    <h3 class="reveal">项目背景</h3>
+    <p class="reveal">为共青团清华大学委员会定制活动礼盒。需要精准体现清华大学的品牌调性，同时传达青年活力与学术底蕴。</p>
+
+    <div class="challenge-box reveal">
+      <h4>核心设计挑战</h4>
+      <p>高校品牌定制项目对色彩准确性和品牌一致性要求极高。需要在严格的清华品牌色彩体系内，创造既有辨识度又不失活力的视觉方案。</p>
+    </div>
+
+    <div class="process reveal">
+      <span class="process-step"><span class="num">01</span> 品牌色彩调研</span><span class="process-arrow">→</span>
+      <span class="process-step"><span class="num">02</span> 材质与工艺选型</span><span class="process-arrow">→</span>
+      <span class="process-step"><span class="num">03</span> 视觉方案设计</span><span class="process-arrow">→</span>
+      <span class="process-step"><span class="num">04</span> 打样与色彩校正</span><span class="process-arrow">→</span>
+      <span class="process-step"><span class="num">05</span> 量产交付</span>
+    </div>
+
+    <div class="grid grid-hero reveal">
+      <div class="img-frame">
+        <img src="images/thu-hero.jpg" alt="清华大学礼盒全景" loading="lazy">
+        <span class="img-caption">礼盒成品全景展示</span>
+      </div>
+    </div>
+
+    <div class="grid grid-3 reveal">
+      <div class="img-frame ratio-1">
+        <img src="images/thu-cover.png" alt="清华礼盒封面插画" loading="lazy">
+        <span class="img-caption">品牌插画设计</span>
+      </div>
+      <div class="img-frame ratio-1">
+        <img src="images/thu-hero.jpg" alt="清华礼盒细节" loading="lazy" style="object-position:right center">
+        <span class="img-caption">礼盒结构与工艺</span>
+      </div>
+      <div class="img-frame">
+        <img src="images/thu-cmf.png" alt="清华大学礼盒CMF分析" loading="lazy">
+        <span class="img-caption">清华紫品牌色彩体系</span>
+      </div>
+    </div>
+
+    <h3 class="reveal">落地成果</h3>
+    <p class="reveal">礼盒已交付使用，成为清华活动的官方配套礼品，在色彩、形态与功能之间实现了品牌表达的统一。</p>
+  </div>
+</section>
+
+<!-- ═══ Project 05: Smart Helmet ═══ -->
+<section class="project">
+  <span class="section-num">06</span>
+  <div class="project-head reveal">
+    <div>
+      <div class="project-id">Project 05</div>
+      <h2 class="project-name">智能头盔</h2>
+      <p class="project-sub">轻量化低风阻智能头盔概念设计</p>
+    </div>
+    <span class="badge badge-concept">概念阶段</span>
+  </div>
+
+  <div class="tags reveal reveal-delay-1">
+    <span class="tag">工业设计</span><span class="tag">3D建模</span><span class="tag">渲染</span><span class="tag">概念设计</span>
+  </div>
+
+  <div class="project-body">
+    <h3 class="reveal">项目背景</h3>
+    <p class="reveal">客户需要一款同时满足轻量化、极致低风阻和设计感的智能头盔产品。在上级审核通过后，我负责外形设计延伸工作。</p>
+
+    <div class="challenge-box reveal">
+      <h4>核心设计挑战</h4>
+      <p>轻量化与低风阻往往要求流线型简洁外形，但客户同时要求保持辨识度和设计感。需要在空气动力学效率与视觉吸引力之间找到平衡。</p>
+    </div>
+
+    <h3 class="reveal">设计过程</h3>
+    <p class="reveal">从概念草图出发，探索多种头盔形态方向——从开放式到全包覆式，再到一体化气动骑行头盔。经过方案筛选后确定最终设计方向，进行3D建模、材质定义与渲染输出。</p>
+
+    <div class="process reveal">
+      <span class="process-step"><span class="num">01</span> 功能需求分析</span><span class="process-arrow">→</span>
+      <span class="process-step"><span class="num">02</span> 外形设计延伸</span><span class="process-arrow">→</span>
+      <span class="process-step"><span class="num">03</span> 3D建模</span><span class="process-arrow">→</span>
+      <span class="process-step"><span class="num">04</span> 配色与渲染</span>
+    </div>
+
+    <div class="grid grid-hero reveal">
+      <div class="img-frame">
+        <img src="images/helmet-sketch.png" alt="智能头盔概念草稿" loading="lazy">
+        <span class="img-caption">概念草图 — 形态探索</span>
+      </div>
+    </div>
+
+    <div class="grid grid-hero reveal">
+      <div class="img-frame">
+        <img src="images/helmet-promo.png" alt="AETHER FLOW概念海报" loading="lazy">
+        <span class="img-caption">AETHER FLOW 概念海报</span>
+      </div>
+    </div>
+
+    <div class="grid grid-3 reveal">
+      <div class="img-frame ratio-1">
+        <img src="images/helmet-render1.jpg" alt="头盔3D渲染侧面" loading="lazy">
+        <span class="img-caption">3D渲染 — 侧面视角</span>
+      </div>
+      <div class="img-frame ratio-1">
+        <img src="images/helmet-render2.jpg" alt="头盔3D渲染侧后方" loading="lazy">
+        <span class="img-caption">3D渲染 — 侧后方视角</span>
+      </div>
+      <div class="img-frame ratio-1">
+        <img src="images/helmet-render3.jpg" alt="头盔3D渲染正面" loading="lazy">
+        <span class="img-caption">3D渲染 — 正面视角</span>
+      </div>
+    </div>
+
+    <div class="grid grid-2 reveal">
+      <div class="img-frame">
+        <img src="images/helmet-diagram.png" alt="头盔功能分析图" loading="lazy">
+        <span class="img-caption">产品功能分析图</span>
+      </div>
+      <div class="img-frame">
+        <img src="images/helmet-render.png" alt="头盔白色渲染" loading="lazy">
+        <span class="img-caption">产品渲染成品</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ Gallery ═══ -->
+<section class="section" id="gallery">
+  <span class="section-num">07</span>
+  <div class="section-label reveal">精选视觉作品</div>
+  <h2 class="section-title reveal reveal-delay-1">插画与海报</h2>
+
+  <p class="reveal reveal-delay-2" style="font-size:15px;font-weight:300;color:var(--fg-muted);margin-bottom:40px;max-width:65ch;">
+    完整的视觉设计能力涵盖节日插画、文化题材创作以及商业活动海报设计。
+  </p>
+
+  <div class="gallery-grid">
+    <div class="gallery-card reveal">
+      <div class="img-frame ratio-4-3">
+        <img src="images/gallery-snake.png" alt="元宵节猜灯谜插画" loading="lazy">
+      </div>
+      <h4>元宵节主题插画 I</h4>
+      <p>蛇年猜灯谜，节日氛围插画</p>
+    </div>
+    <div class="gallery-card reveal reveal-delay-1">
+      <div class="img-frame ratio-4-3">
+        <img src="images/gallery-dragon.png" alt="元宵节吃元宵插画" loading="lazy">
+      </div>
+      <h4>元宵节主题插画 II</h4>
+      <p>龙年吃元宵，独立创作全流程</p>
+    </div>
+    <div class="gallery-card reveal reveal-delay-2">
+      <div class="img-frame ratio-4-3">
+        <img src="images/gallery-potala.png" alt="布达拉宫插画" loading="lazy">
+      </div>
+      <h4>布达拉宫 · 心愿前行</h4>
+      <p>根据实景资料创作的文化题材插画</p>
+    </div>
+    <div class="gallery-card reveal">
+      <div class="img-frame ratio-4-3">
+        <img src="images/gallery-summit.jpg" alt="AI FOR LIFE SCIENCE 峰会海报" loading="lazy">
+      </div>
+      <h4>智能体创新峰会</h4>
+      <p>水木分子春季战略与产品发布会主视觉</p>
+    </div>
+    <div class="gallery-card reveal reveal-delay-1">
+      <div class="img-frame ratio-4-3">
+        <img src="images/gallery-guide.jpg" alt="峰会引导板设计" loading="lazy">
+      </div>
+      <h4>峰会配套导视</h4>
+      <p>活动配套引导板设计</p>
+    </div>
+    <div class="gallery-card reveal reveal-delay-2">
+      <div class="img-frame ratio-4-3">
+        <img src="images/gallery-snake.png" alt="蛇年插画" loading="lazy" style="object-position:center top">
+      </div>
+      <h4>其他节日插画</h4>
+      <p>更多节日主题创作</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ Footer ═══ -->
+<footer class="footer" id="contact">
+  <h2 class="reveal">期待与你<em>合作</em></h2>
+  <p class="footer-tagline reveal reveal-delay-1">把好想法做成好产品</p>
+
+  <div class="footer-contacts reveal reveal-delay-2">
+    <div>
+      <div class="footer-contact-label">电话</div>
+      <div class="footer-contact-value"><a href="tel:15328626271">15328626271</a></div>
+    </div>
+    <div>
+      <div class="footer-contact-label">邮箱</div>
+      <div class="footer-contact-value"><a href="mailto:1269427834@qq.com">1269427834@qq.com</a></div>
+    </div>
+    <div>
+      <div class="footer-contact-label">微信</div>
+      <div class="footer-contact-value">15328626271</div>
+    </div>
+  </div>
+
+  <a href="#top" class="back-top reveal reveal-delay-3">
+    ↑ 回到顶部
+  </a>
+</footer>
+
+<script>
+// Nav scroll
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 40);
+}, { passive: true });
+
+// Reveal
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.06, rootMargin: '0px 0px -60px 0px' });
+reveals.forEach(el => observer.observe(el));
+</script>
+</body>
 </html>
