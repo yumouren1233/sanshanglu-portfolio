@@ -209,6 +209,7 @@ body::after {
 .section {
   padding: 120px 48px;
   position: relative;
+  overflow: hidden;
 }
 
 .section + .section {
@@ -373,6 +374,8 @@ body::after {
 .project {
   padding: 100px 48px;
   border-top: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
 }
 
 .project-head {
@@ -547,15 +550,41 @@ body::after {
   border: 1px solid var(--border);
 }
 
-.img-frame.ratio-1 { aspect-ratio: 1/1; }
-.img-frame.ratio-4-3 { aspect-ratio: 4/3; }
+.img-frame::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, var(--bg-card) 25%, var(--border-light) 50%, var(--bg-card) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  z-index: 1;
+  transition: opacity 0.4s ease;
+}
+
+.img-frame.loaded::before {
+  opacity: 0;
+  pointer-events: none;
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
 
 .img-frame img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.6s var(--ease);
+  transition: transform 0.6s var(--ease), opacity 0.5s ease;
+  opacity: 0;
 }
+
+.img-frame.loaded img {
+  opacity: 1;
+}
+
+.img-frame.ratio-1 { aspect-ratio: 1/1; }
+.img-frame.ratio-4-3 { aspect-ratio: 4/3; }
 
 .img-frame:hover img {
   transform: scale(1.03);
@@ -1265,6 +1294,18 @@ const observer = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0.06, rootMargin: '0px 0px -60px 0px' });
 reveals.forEach(el => observer.observe(el));
+
+// Image shimmer → loaded
+document.querySelectorAll('.img-frame img').forEach(img => {
+  const frame = img.closest('.img-frame');
+  if (!frame) return;
+  if (img.complete && img.naturalWidth > 0) {
+    frame.classList.add('loaded');
+  } else {
+    img.addEventListener('load', () => frame.classList.add('loaded'));
+    img.addEventListener('error', () => frame.classList.add('loaded'));
+  }
+});
 </script>
 </body>
 </html>
