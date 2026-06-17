@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Product Development Workflow — Ray Qin Hai</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue',
+                   Inter, 'Noto Sans SC', 'PingFang SC', sans-serif;
+      background: #ffffff; color: #1d1d1f; line-height: 1.6; font-size: 16px;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 52px; padding: 0 40px;
+      background: rgba(255,255,255,0.82);
+      backdrop-filter: saturate(180%) blur(20px);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      border-bottom: 1px solid #d2d2d7;
+    }
+    .nav-brand { font-size: 17px; font-weight: 600; letter-spacing: -0.02em; }
+    .nav-links { display: flex; gap: 32px; }
+    .nav-links a { font-size: 13px; color: #1d1d1f; opacity: 0.8; }
+    .nav-links a:hover { opacity: 1; }
+
+    .page { max-width: 780px; margin: 0 auto; padding: 140px 40px 100px; }
+    .page-eyebrow {
+      font-size: 14px; font-weight: 500; letter-spacing: 0.04em;
+      text-transform: uppercase; color: #86868b; margin-bottom: 16px;
+    }
+    .page h1 {
+      font-size: clamp(36px, 5vw, 52px); font-weight: 700;
+      letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 20px;
+    }
+    .page-desc {
+      font-size: 19px; color: #6e6e73; max-width: 580px; margin-bottom: 64px; line-height: 1.55;
+    }
+
+    .workflow { counter-reset: step; }
+    .step {
+      display: grid; grid-template-columns: 60px 1fr;
+      gap: 24px; padding: 40px 0; border-top: 1px solid #d2d2d7;
+    }
+    .step:last-child { border-bottom: 1px solid #d2d2d7; }
+    .step-num {
+      counter-increment: step;
+      font-size: 40px; font-weight: 700; color: #f5f5f7;
+      letter-spacing: -0.03em; line-height: 1;
+    }
+    .step-num::before { content: counter(step, decimal-leading-zero); }
+    .step h2 {
+      font-size: 21px; font-weight: 600; letter-spacing: -0.01em;
+      margin-bottom: 10px; color: #1d1d1f;
+    }
+    .step p {
+      font-size: 16px; color: #6e6e73; line-height: 1.65; max-width: 520px;
+    }
+
+    .back-link {
+      display: inline-block; margin-top: 60px;
+      font-size: 15px; font-weight: 500; color: #0071e3;
+    }
+    .back-link:hover { color: #0077ed; }
+
+    @media (max-width: 768px) {
+      .page { padding: 120px 24px 60px; }
+      .nav { padding: 0 24px; }
+      .step { grid-template-columns: 40px 1fr; gap: 16px; }
+      .step-num { font-size: 28px; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <a href="index.html" class="nav-brand">Ray Qin Hai</a>
+    <ul class="nav-links">
+      <li><a href="index.html#projects">Works</a></li>
+      <li><a href="process.html">Process</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <div class="page">
+    <p class="page-eyebrow">Methodology</p>
+    <h1>Product Development<br>Workflow</h1>
+    <p class="page-desc">
+      A systematic approach to transforming ideas into manufacturable products.
+      Each phase builds on the previous, ensuring design decisions are grounded
+      in feasibility and user needs.
+    </p>
+
+    <div class="workflow">
+      <div class="step">
+        <div class="step-num"></div>
+        <div>
+          <h2>Market &amp; Competitor Analysis</h2>
+          <p>Understand the landscape. Identify gaps, benchmark existing products, and define where the opportunity lies before any design work begins.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num"></div>
+        <div>
+          <h2>User Positioning</h2>
+          <p>Define target users, their pain points, usage scenarios, and willingness to pay. Build personas that drive design decisions throughout the project.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num"></div>
+        <div>
+          <h2>Concept Sketching</h2>
+          <p>Rapid visual exploration of multiple form directions. Evaluate concepts against user needs, manufacturing constraints, and brand positioning.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num"></div>
+        <div>
+          <h2>3D Modeling (Rhino)</h2>
+          <p>Translate selected concepts into precise 3D models. Focus on surface quality, part relationships, and design intent preservation from sketch to digital.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num"></div>
+        <div>
+          <h2>Manufacturability Evaluation</h2>
+          <p>Assess draft angles, wall thickness, undercuts, and assembly logic. Identify production risks early and iterate the design for feasible manufacturing.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num"></div>
+        <div>
+          <h2>Prototyping &amp; Testing</h2>
+          <p>Physical prototypes validate form, fit, and function. Test with real users and refine based on feedback before committing to tooling.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num"></div>
+        <div>
+          <h2>Iteration &amp; Production Optimization</h2>
+          <p>Final refinements based on prototype learnings. Optimize for cost, quality, and scalability. Prepare production-ready documentation for factory handoff.</p>
+        </div>
+      </div>
+    </div>
+
+    <a href="index.html" class="back-link">&larr; Back to Portfolio</a>
+  </div>
+</body>
+</html>
